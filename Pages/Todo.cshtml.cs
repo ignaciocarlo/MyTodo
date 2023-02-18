@@ -7,7 +7,7 @@ namespace MyTodo.Pages;
 public class TodoModel : PageModel
 {
     [BindProperty]
-    public Todo NewTodo { get; set; }
+    public Todo NewTodo { get; set; } = new();
     public List<Todo> todos { get; set; }
     public string CompletedFreeText(Todo todo)
     {
@@ -17,6 +17,19 @@ public class TodoModel : PageModel
     {
         todos = MyTodoController.GetAll();
     }
-
+	public IActionResult OnPost()
+	{
+		if (!ModelState.IsValid)
+		{
+			return Page();
+		}
+		MyTodoController.Add(NewTodo);
+		return RedirectToAction("Get");
+	}
+	public IActionResult OnPostDelete(int id)
+	{
+		MyTodoController.Delete(id);
+		return RedirectToAction("Get");
+	}
 }
   
