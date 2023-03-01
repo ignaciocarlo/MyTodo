@@ -5,43 +5,51 @@
 	ViewData["Title"] = "Todo List";
 }
 
-<h1>My Todo List</h1>
-<form method="post" class="card p-3">
-	<div class="row">
-		<div asp-validation-summary="All"></div>
-	</div>
-	<div class="form-group mb-0 align-middle">
-		<label asp-for="NewTodo.Task">Enter your task:</label>
-		<input type="text" asp-for="NewTodo.Task" class="mr-5">
-		<label asp-for="NewTodo.Description">Enter task description:</label>
-		<input type="text" asp-for="NewTodo.Description" class="mr-5">
-		<!-- <label asp-for="NewTodo.Type">Task Type:</label>
-		<select asp-for="NewTodo.Type" asp-items=""> 
-		</select> -->
-		<button class="btn btn-primary">Add</button>
-	</div>
-</form>
-<table class="table mt-5">
-	<thead>
-		<tr>
-			<th scope="col">Task</th>
-		    <th scope="col">Description</th>
-		</tr>
-	</thead>
+<h1 class="text-center">My Todo List</h1>
+<div class="container-fluid">
+	<form method="post" class="card p-5 w-auto">
+		<div class="row">
+			<div asp-validation-summary="All"></div>
+		</div>
+		<div class="form-group mb-0 align-middle">
+			<div class="mb-3">
+				<label asp-for="NewTodo.Task">Enter your task:</label>
+				<input type="text" asp-for="NewTodo.Task" class="form-control mr-5">
+			</div>
+			<div class="mb-3">
+				<label asp-for="NewTodo.Description">Enter task description:</label>
+				<textarea asp-for="NewTodo.Description" class="form-control"><</textarea>
+			</div>
+			<!-- <label asp-for="NewTodo.Type">Task Type:</label>
+			<select asp-for="NewTodo.Type" asp-items="">
+			</select> -->
+			<button class="btn btn-primary">Add</button>
+		</div>
+	</form>
+	<div class="card p-5 w-auto">
+	<table class="table mt-5">
+		<thead>
+			<tr>
+				<th scope="col">Task</th>
+				<th scope="col">Description</th>
+				<th scope="col">Action</th>
+			</tr>
+		</thead>
 		@foreach (var todo in Model.todos)
 		{
-				<tr>
-					<td>@todo.Task</td>
-					<td>@todo.Description</td>
-					<td>
+			<tr>
+				<td>@todo.Task</td>
+				<td>@todo.Description</td>
+				<td>
 					<form method="post" asp-page-handler="Delete" asp-route-id="@todo.Id">
 						<button class="btn btn-danger">Delete</button>
 					</form>
-					</td>
-				</tr>
+				</td>
+			</tr>
 		}
-</table>
-
+	</table>
+	</div>
+</div>
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />
 }
